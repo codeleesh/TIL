@@ -1,0 +1,82 @@
+# 2022.03.01
+
+- 스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술
+	- [x] 섹션 1. 웹 애플리케이션 이해 - 100%
+	- [x] 섹션 2. 서블릿 - 100%
+	- [X] 섹션 3. 서블릿, JSP, MVC 패턴 - 100%
+	- [ ] 섹션 4. MVC 프레임워크 만들기 - 80%
+
+## TO-DO
+
+- [ ] [HTTP] 모든 개발자를 위한 HTTP 웹 기본 지식
+	- [ ] 실습 진행 필요
+		- [ ] HTTP Form GET, POST 예제
+		- [ ] 영구 리다이렉션 301, 308 예제
+		- [ ] 일시적인 리다이렉션 302, 307, 303 예제
+		- [ ] PRG 예제
+- [ ] [Java] basic-daily
+	- [ ] String 참조형 변수
+		- [ ] 개념 정리
+		- [ ] 메소드 정리
+			- 정리 진행 중
+		- [ ] 샘플 소스
+			- 정리 진행 중
+- [ ] [Java] basic-daily
+	- [ ] List 관련 내용 정리
+		- [ ] 개념 정리
+		- [ ] 메소드 정리
+	- [ ] 샘플 소스
+		- [ ] 작성 필요
+	- [x] notion 정리 - List와 ArrayList
+		- [List와 ArrayList 사용방법의 차이](https://codeleesh.notion.site/List-ArrayList-62d090443f594aabbc4a6ea0048cb4b4)
+- [ ] 다이어그램
+	- [ ] 도메인 전체 그림
+	- [ ] 클래스 다이어그램
+	- [ ] 객체 다이어그램
+	- [ ] 정적인 클래스 그림
+	- [ ] 동적인 객체 인스턴스 의존 관계 그림
+- [ ] [Java] 디자인 패턴 정리
+	- [x] 정리할 항목 조사
+		- [x] Singleton 패턴
+		- [x] Proxy 패턴
+	- [x] 예제 소스
+		- [x] 장/단점
+	- [ ] 정리 필요
+	- [ ] 블로그 공유
+- [ ] `LocalDateTime`을 `hibernate`에서 어떻게 지원하는지 확인해보자
+- [ ] ApplicationContext가 제공하는 부가기능 내용 정리
+	- MessageSource
+	- EnvironmentCapable
+	- ApplicationEventPublisher
+	- ListableBeanFactory
+	- HierarchicalBeanFactory
+	- ResourceLoader
+- [ ] JPA 필드 선언 시 `private List<OrderItem> orderItems = new ArrayList<>();` 를 하는 이유를 알아보자
+- [ ] 추상 클래스를 사용 정리
+	- [ ] 샘플 소스 작성
+	- [ ] 상속하는 클래스들을 만들기 위해서 사용하지만 더 확실하게 정리
+- [ ] Thymeleaf 공부하기
+- [ ] 집 개발서버 설정 진행 중
+	- [x] ssh(22) 접속 허용 여부
+	- [x] 8080 접속 허용 여부
+	- [x] yum 설치 여부
+	- [X] jekins 설치 여부
+		- 각각 조사
+		- [ ] 리눅스 설치
+		- [ ] 도커 설치
+	- [ ] github ci/cd 연결
+	- [ ] sonarqube 설치
+- 한 번에 끝내는 코딩테스트 369 Java편 초격차 패키지
+	- [ ] 섹션 1. 자료구조 이론 - 20%
+- 스프링 핵심 원리 - 기본편
+	- [x] 섹션 1. 객체 지향 설계와 스프링 - 100%
+	- [x] 섹션 2. 스프링 핵심 원리 이해1 - 100%
+	- [x] 섹션 3. 스프링 핵심 원리 이해2 - 100%
+	- [X] 섹션 4. 스프링 컨테이너와 스프링 빈 - 100%
+	- [X] 섹션 5. 싱글톤 컨테이너 - 100%
+	- [X] 섹션 6. 컴포넌트 스캔 - 100%
+	- [X] 섹션 7. 의존관계 자동 주입 - 100%
+	- [X] 섹션 8. 빈 생명주기 콜백 - 100%
+	- [ ] 섹션 9. 빈 스코프 - 20%
+- MVC 프레임워크 만들기 과제
+  - 유연한 컨트롤러2 - v5 강의를 참고하여 OCP 원칙 준수하도록 코드 수정
