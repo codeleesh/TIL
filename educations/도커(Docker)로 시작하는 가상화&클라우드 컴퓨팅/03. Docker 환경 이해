@@ -1,1 +1,124 @@
+# Docker 환경 이해
 
+## 도커 허브와 레지스트리
+
+### Docker Hub
+
+`도커에서 제공하는 기본 이미지 저장소`
+
+- `베이스 이미지` - ubuntu, centos, debian
+- `공식 이미지` - ruby, golang, java, python
+
+- 회원 가입만 하면 대용량의 이미지를 무료로 저장할 수 있고 다운로드 트래픽 또한 무료임
+- 단, 기본적으로 모든 이미지는 공개되어 누구나 접근 가능하므로 비공개로 사용하려면 유료 서비스를 이용해야 함(한 개는 무료)
+
+### Docker Hub를 이용한 빌드
+
+- Docker의 경우 작게는 수십 MB에서 많게는 수백 MB까지 다운로드 받아야 하는 경우가 있음
+  - docker hub에서 제공하는 "Created AUtomated Build" 기능을 이용할 수 있음
+- Docker hub는 maven repository와 같이 외부에 공개되어 있는 도커 이미지 레포지토리로 docker pull 명령을 이용하여 컨테이너를 로컬에 받아 오거나, Docker image 빌드시 베이스 이미지 등을 받아오는데 주로 사용됨
+- 순서
+  1. Create auto build repo
+  2. push Dockerfile
+  3. pull Dockerfile & docker build
+  4. docker pull
+
+### Docker Registry
+
+- 레지스트리 API에 응답하는 도커 이미지 저장소를 포함한 호스팅 서비스
+- docker hub에 로그인하여 상단의 Repositories를 클릭 후 이미지를 등록 및 관리할 Repository를 생성함
+- Repository를 생성할 때 공개 여부를 설정할 수 있음
+- 기본 권한은 Public인데 만약 공개하기 싫다면 Private으로 설정해주면 됨
+
+### Docker 사설 Registry 구축
+
+- Docker hub는 반드시 public으로만 이미지를 push 할 수 있으며, 개인 사용자는 하나의 이미지만 private으로 사용할 수 있음
+- Docker hub를 이용하면 Registry 구축 없이 도커 이미지를 저장, 배포할 수 있음
+  - But, 도커 이미지 등이 회사 내부에서 비공개적으로 사용되거나, 사설 네트워크 등에서 사용되기 위해서는 내부 서버에 도커 Registry를 구축해야 함
+- 공식적으로 제공되는 도커 이미지처럼, 다양한 종류의 도커 이미지와 버전 등을 관리할 수 있는 사설 저장소(Repository)를 구축하여 사용할 수 있음
+
+#### 구축 방법
+
+- Docker Registry 구축
+  - 도커 Registry 또한 도커 이미지로 배포되고 있음
+- Registry 이미지 다운로드
+  - docker pull registry
+- Registry 컨테이너 생성
+  - docker run -d -p 5000:5000 --restart=always --name registry registry
+- 도커 이미지 저장하기
+  - 도커 이미지를 태깅하고 Registry에 추가한다.
+  - docker pull ubuntu
+  - docker image tag ubuntu localhost:5000/myfirstimage
+- 도커 이미지 배포
+  - docker pull localhost:5000/myfirstimage
+- Docker Registry 삭제
+  - 실행중인 Registry 를 종요하고, 컨테이너를 삭제하게 됨
+  - 기존 Registry에 저장된 도커 이미지는 모두다 삭제 되므로 주의 필요
+  - docker containger stop registry && docker container rm -v registry
+ 
+ ## 도커 서비스 환경 구성
+ 
+ ### 도커 서비스 환경
+ 
+- docker-compose라는 여러 Docker 컨테이너를 통합적으로 관리하는 cli 프로그램으로써 docker를 설치하면 번들로써 제공함
+- 컨테이너 기반을 이용하여 단순한 저장공간 컨테이너(볼륨)를 만들어 저장공간을 container끼리 연결할 수 있으며, 실행한 호스트의 저장공간에도 접근 가능함
+- Docker는 게스트 OS를 설치하지 않음
+  - 단지 이미지에 서버 운영을 위한 프로그램과 라이브러리만 격리해서 설치하기 때문에 이미지 용량이 크게 줄어듦
+- Docker의 컨테이너는 OS를 설치하지 않기 때문에 호스트와 OS 자원을 직접 사용함
+  - Docker는 하드웨어 가상화 계층이 존재하지 않기 때문에 메모리접근, 파일접근 등 관련한 기능에서 직접 접근하기 때문에 가상화보다 빠른 성능을 보여줌
+- Docker 프로그램에서 다양한 API를 제공하기 때문에 원하는 만큼 자동화가 가능함
+
+#### 서비스 환경
+
+- Dockerfile
+- Dockerfile을 사용해 빌드한 Docker 이미지
+- docker run 명령어에 붙이는 옵션들
+- docker run으로 실행된 Docker 컨테이너
+
+#### 장점
+
+- 확장성
+  - 이미지만 만들어 놓으면 컨테이너만 관리
+  - 서비스 이전이나 신규 서버에 서비스 추가시 docker run 명령어로 처리
+  - 개발서버나 테스트서버 운용 간편
+- 표준성
+  - 도커를 사용하지 않는 경우 ruby, node.js, go, php로 만든 서비스들의 배포 방식은 제각각
+  - 컨테이너라는 표준으로 서버를 배포하므로 모든 서비스들의 배포과정이 동일
+- 이미지
+  - 이미지에서 컨테이너를 생성하기 때문에 반드시 이미지를 만드는 과정이 필요
+  - 이미지를 저장할 곳이 필요
+- 설정
+  - 설정은 보통 환경변수로 제어
+  - MYSQL_PASS=password와 같이 컨테이너를 띄울 때 환경변수를 같이 지정
+  - 하나의 이미지가 환경변수에 따라 동적으로 설정파일을 생성하도록 만들어야 함
+- 공유자원
+  - 컨테이너는 삭제 후 새로 만들면 모든 데이터가 초기화됨
+  - 업로드 파일을 외부 스토리지와 링크하여 S3같은 별도의 저장소 필요
+  - 세션이나 캐시를 파일로 사용시 memcached나 redis와 같은 외부로 분리
+  
+## 서비스 빌드 및 배포
+
+image -> push -> docker registry -> pull -> Server1, 2, 3
+
+### Docker 에서 제시하는 개발-배포 Flow
+
+1. 초기 구축
+  - 코드가 배포될 클라우드의 인프라를 구축하는 일을 의미함
+  - Docker 를 이용한 개발-배포 Flow에서, 초기 구축은 2단계로 나뉨
+    1단계 : Swarm(Docker Machine Cluster)를 구축한다.
+    2단계 : docker-compose.yml 로 Stack 구성하고 실행한다.
+2. 스케일 조정
+  - docker 로드밸런싱(부하분산) : 2가지 패러다임
+    1. Cluster의 worker node를 추가함으로써 부하분산을 취하는 방식
+    2. Service의 Task Container 수(replicas : 5)를 늘림으로써 부하분산을 취하는 방식
+  - Swarm Cluster의 로드밸런싱
+    - 결국 각 노드에 존재하는 swarm loadbalancer가 하나의 docker 실행환경처럼 작동해서 필요한 적절한 컨테이너로 연결해줌
+3. 코드 배포
+  - 소스 코드 수정 후 docker image build 하기
+  - Docker Hub Repository에 새로 만든 이미지 push 하기
+  - docker-compose.yml 파일 또는 swarm 에 bind-mount 파일 변경되었다면 docker-machine scp로 전송
+  - docker-machine ssh mvym1 "docker stack deploy -c ./docker-compose.yml" 로 Stack 재배포하면, Repository에서 이미지 새로 끌어와서 업데이트된 컨테이너가 구축됨
+
+## 정리
+
+- Docker hub는 maven repository와 같이 외부에 공개되어 있는 도커 이미지 레포지토리이며, 도커 컴포즈를 활용하여 여러 개의 컨테이너 옵션과 환경을 읽어 컨테이너를 순차적으로 생성한다.
