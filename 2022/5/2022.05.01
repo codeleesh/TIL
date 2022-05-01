@@ -1,0 +1,24 @@
+# 2022.05.01
+
+- ELK 강의 회고글 작성
+- Jenkins 설정 정리
+	- pipeline 스크립트 작성 완료
+  - jenkins 로컬 설치 완료
+  - READMD.md 작성 진행 중 (~4/30)
+- gitea 실습
+  - gitea 로컬 설치 진행 중 화면 나타나지 않는 현상 발생
+- Nexus Bulk upload
+  - 스크립트 작성 예정
+- Podman 실행
+  - 스크립트 예시 작성 예정
+- Spring Boot Start/Stop 스크립트
+  - Start/Stop 스크립트 작성 예정
+- 독서 : 객체지향의 사실과 오해
+  - 1장 완료
+  - 2장 완료
+  - 3장 진행 중
+- 이력서 정리 중
+  - 입사 지원 이유 아이디어 필요
+- logback 정리 필요
+  - 공식 문서 내용 정리 중
+- JPA Generated 정리 필요
