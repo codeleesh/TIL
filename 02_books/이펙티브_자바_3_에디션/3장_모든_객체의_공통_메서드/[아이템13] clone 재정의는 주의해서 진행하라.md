@@ -76,7 +76,7 @@ Object의 clone 메서드는 Object를 반환하지만 우리가 사용할 객�
 
 - `Cloneable` 을 구현하는 모든 클래스는 clone을 재정의해야 합니다.
 
-- 접근제한자는 proctected에서 public으로 변경해야 합니다.
+- 접근제한자는 protected에서 public으로 변경해야 합니다.
 
 - 반환 타입은  object에서 클래스 자신으로 변경해야 합니다.
 
